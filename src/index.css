@@ -1,8 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Diplomata+SC&display=swap");
 
-:root {
+root {
   color: rgba(28, 2, 2, 0.87);
   background-color: #d7d3d3;
 }
