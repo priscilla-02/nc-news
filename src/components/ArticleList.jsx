@@ -8,7 +8,7 @@ const ArticleList = ({ articles, setArticles }) => {
   useEffect(() => {
     setIsLoading(true);
 
-    fetchAllArticles(setArticles).then((articleList) => {
+    fetchAllArticles().then((articleList) => {
       setArticles(articleList);
       setIsLoading(false);
     });
