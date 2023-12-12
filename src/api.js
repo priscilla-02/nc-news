@@ -18,7 +18,7 @@ export const fetchSingleArticle = (article_id) => {
 
 export const updateArticleVote = (article_id, vote) => {
   return newsAPI
-    .patch(`/articl/${article_id}`, { inc_votes: vote })
+    .patch(`/articles/${article_id}`, { inc_votes: vote })
     .then(({ data }) => {
       return data.article;
     })
