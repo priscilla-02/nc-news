@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { fetchCommentsByArticleId } from "../api";
 import { sqlDateFormatter } from "../utils";
 import HourglassBottomTwoToneIcon from "@mui/icons-material/HourglassBottomTwoTone";
+import { LoadingContext } from "./contexts/LoadingContext";
+import { useContext } from "react";
 
 const Comments = ({ article_id }) => {
   const [commentList, setCommentList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
+  console.log(isLoading);
 
   useEffect(() => {
     setIsLoading(true);
