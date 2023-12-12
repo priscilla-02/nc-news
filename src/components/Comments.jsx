@@ -25,22 +25,30 @@ const Comments = ({ article_id }) => {
 
   return (
     <div>
+      <div className="font-bold text-2xl pt-20">Comments</div>
       <ul className="flex flex-col items-center ">
-        {commentList.map((comment) => {
-          return (
-            <li
-              key={comment.comment_id}
-              className="flex flex-col desktop:w-[80vw] w-[90vw] border-solid border-2 border-sky-500 rounded-xl my-4 p-2"
-            >
-              <p>
-                {comment.author} posted on{" "}
-                {sqlDateFormatter(comment.created_at)}
-              </p>
-              <br />
-              <p>"{comment.body}"</p>
-            </li>
-          );
-        })}
+        {commentList.length === 0 ? (
+          <p className="flex flex-col desktop:w-[80vw] w-[90vw] w-10 border-solid border-2 border-sky-500 rounded-xl my-4 p-2">
+            Be the first one to comment!
+          </p>
+        ) : (
+          commentList.map((comment) => {
+            return (
+              <li
+                key={comment.comment_id}
+                className="flex flex-col desktop:w-[80vw] w-[90vw] border-solid border-2 border-sky-500 rounded-xl my-4 p-2"
+              >
+                <p>
+                  {comment.author} posted on{" "}
+                  {sqlDateFormatter(comment.created_at)}
+                </p>
+                <br />
+
+                <p>"{comment.body}"</p>
+              </li>
+            );
+          })
+        )}
       </ul>
     </div>
   );
