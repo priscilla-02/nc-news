@@ -48,7 +48,7 @@ const SingleArticle = () => {
         <div className="flex border-solid border-2 border-sky-500 rounded-xl px-5 m-5">
           {singleArticle.author} at {sqlDateFormatter(singleArticle.created_at)}
         </div>
-        <div className="flex items-center border-solid border-2 border-sky-500 rounded-xl cursor-pointer px-5 m-5">
+        <div className="flex items-center border-solid border-2 border-sky-500 hover:border-sky-900 rounded-xl cursor-pointer px-5 m-5">
           {singleArticle.topic}
         </div>
       </div>
