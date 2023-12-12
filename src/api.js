@@ -12,7 +12,17 @@ export const fetchAllArticles = () => {
 
 export const fetchSingleArticle = (article_id) => {
   return newsAPI.get(`/articles/${article_id}`).then(({ data }) => {
-    console.log(data);
     return data.article;
   });
+};
+
+export const updateArticleVote = (article_id, vote) => {
+  return newsAPI
+    .patch(`/articl/${article_id}`, { inc_votes: vote })
+    .then(({ data }) => {
+      return data.article;
+    })
+    .catch(function (error) {
+      return error.toJSON();
+    });
 };

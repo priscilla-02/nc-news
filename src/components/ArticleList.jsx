@@ -18,7 +18,6 @@ const ArticleList = ({ articles, setArticles }) => {
   }, []);
 
   const handleClick = (article_id) => {
-    console.log("clicked!");
     navigate(`/articles/${article_id}`);
   };
 
