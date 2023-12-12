@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { fetchAllArticles } from "../api";
 import HourglassBottomTwoToneIcon from "@mui/icons-material/HourglassBottomTwoTone";
+import { useNavigate } from "react-router-dom";
 
 const ArticleList = ({ articles, setArticles }) => {
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -13,6 +16,11 @@ const ArticleList = ({ articles, setArticles }) => {
       setIsLoading(false);
     });
   }, []);
+
+  const handleClick = (article_id) => {
+    console.log("clicked!");
+    navigate(`/articles/${article_id}`);
+  };
 
   if (isLoading)
     return (
@@ -30,7 +38,7 @@ const ArticleList = ({ articles, setArticles }) => {
             key={article.article_id}
             className="desktop:w-[20vw] w-[40vw] m-2"
           >
-            <article>
+            <article onClick={() => handleClick(article.article_id)}>
               <img src={article.article_img_url} alt={article.title} />
               <p>{article.title}</p>
             </article>
