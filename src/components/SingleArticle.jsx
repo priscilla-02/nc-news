@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { fetchSingleArticle } from "../api";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
+import { sqlDateFormatter } from "../utils";
 import HourglassBottomTwoToneIcon from "@mui/icons-material/HourglassBottomTwoTone";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 
 const SingleArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,10 +22,6 @@ const SingleArticle = () => {
       setIsLoading(false);
     });
   }, [article_id]);
-
-  const sqlDateFormatter = (created_at) => {
-    return new Date(created_at).toLocaleString();
-  };
 
   const handleClickLikes = () => {
     let updatedLike = likesCount + 1;
@@ -72,6 +70,7 @@ const SingleArticle = () => {
         className="cursor-pointer"
         onClick={() => handleClickLikes()}
       >
+        <FavoriteOutlinedIcon />
         Like
       </Button>
     </div>
