@@ -89,16 +89,7 @@ const SingleArticle = () => {
             <FavoriteOutlinedIcon />
             {likesCount} likes
           </div>
-          <Button
-            variant={clickLike ? "contained" : "outlined"}
-            className="cursor-pointer"
-            onClick={() => handleClickLikes()}
-          >
-            <FavoriteOutlinedIcon />
-            Like
-          </Button>
         </div>
-        <Comments article_id={article_id} />
         <div>
           <Button
             variant={clickLike ? "contained" : "outlined"}
