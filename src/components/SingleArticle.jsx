@@ -6,6 +6,7 @@ import { sqlDateFormatter } from "../utils";
 import HourglassBottomTwoToneIcon from "@mui/icons-material/HourglassBottomTwoTone";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import Comments from "./Comments";
+import PostComment from "./PostComment";
 
 const SingleArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,6 +14,7 @@ const SingleArticle = () => {
   const [commentCount, setCommentCount] = useState(0);
   const [likesCount, setLikesCount] = useState(0);
   const [clickLike, setClickLike] = useState(false);
+  const [refreshComment, setRefreshComment] = useState(false);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -42,8 +44,8 @@ const SingleArticle = () => {
     );
 
   return (
-    <div>
-      <div className="flex flex-col desktop:w-[80vw] w-[90vw] items-center mx-auto mt-10 border-solid border-2 rounded-lg p-5 border-indigo-800">
+    <div className="bg-gray-400 pt-10">
+      <div className="flex flex-col desktop:w-[80vw] w-[90vw] items-center mx-auto border-solid border-2 rounded-lg p-5 border-indigo-800">
         <div className="font-bold text-2xl">{singleArticle.title}</div>
 
         <div className="flex space-even">
@@ -77,7 +79,12 @@ const SingleArticle = () => {
           Like
         </Button>
       </div>
-      <Comments article_id={article_id} />
+      <PostComment setRefreshComment={setRefreshComment} />
+      <Comments
+        article_id={article_id}
+        setRefreshComment={setRefreshComment}
+        refreshComment={refreshComment}
+      />
     </div>
   );
 };

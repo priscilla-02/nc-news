@@ -10,9 +10,11 @@ const ArticleList = ({ articles, setArticles }) => {
 
   useEffect(() => {
     setIsLoading(true);
+    console.log("hi");
 
     fetchAllArticles().then((articleList) => {
       setArticles(articleList);
+      console.log("after");
       setIsLoading(false);
     });
   }, []);
