@@ -5,17 +5,20 @@ import { LoadingContext } from "../contexts/LoadingContext";
 import { useContext } from "react";
 import Loading from "./Loading";
 
-const Comments = ({ article_id }) => {
+const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
   const [commentList, setCommentList] = useState([]);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
 
   useEffect(() => {
-    setIsLoading(true);
+    if (refreshComment) {
+      setIsLoading(true);
+    }
     fetchCommentsByArticleId(article_id).then((commentList) => {
       setCommentList(commentList);
       setIsLoading(false);
+      setRefreshComment(false);
     });
-  }, [article_id]);
+  }, [article_id, refreshComment]);
 
   return (
     <>

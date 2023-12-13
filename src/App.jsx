@@ -6,23 +6,31 @@ import Header from "./components/Header";
 import MenuBar from "./components/MenuBar";
 import SingleArticle from "./components/SingleArticle";
 import { LoadingProvider } from "./contexts/LoadingContext";
+import { UserProvider } from "./contexts/UserContext";
+import { ModalProvider } from "./contexts/ModalContext";
+import LogInModal from "./components/LoginModal";
 
 function App() {
   const [articles, setArticles] = useState([]);
   return (
     <BrowserRouter>
       <LoadingProvider>
-        <Header />
-        <MenuBar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ArticleList articles={articles} setArticles={setArticles} />
-            }
-          />
-          <Route path="/articles/:article_id" element={<SingleArticle />} />
-        </Routes>
+        <UserProvider>
+          <ModalProvider>
+            <LogInModal />
+            <Header />
+            <MenuBar />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ArticleList articles={articles} setArticles={setArticles} />
+                }
+              />
+              <Route path="/articles/:article_id" element={<SingleArticle />} />
+            </Routes>
+          </ModalProvider>
+        </UserProvider>
       </LoadingProvider>
     </BrowserRouter>
   );

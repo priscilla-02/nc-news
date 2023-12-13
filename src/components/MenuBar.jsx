@@ -9,7 +9,7 @@ const MenuBar = () => {
   const [showMenuBol, setShowMenuBol] = useState(false);
 
   return (
-    <div>
+    <div className="bg-gray-400">
       <Button
         variant="outlined"
         onClick={() => setShowMenuBol((prev) => !prev)}

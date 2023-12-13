@@ -31,3 +31,25 @@ export const updateArticleVote = (article_id, vote) => {
       return error.toJSON();
     });
 };
+
+export const fetchUsers = () => {
+  return newsAPI.get("/users").then(({ data }) => {
+    return data.users;
+  });
+};
+
+export const postComment = (commentInput, article_id, username) => {
+  // console.log(commentInput);
+  // console.log(article_id);
+  console.log(username);
+  const postBody = {
+    username: username,
+    body: commentInput,
+  };
+  return newsAPI
+    .post(`/articles/${article_id}/comments`, postBody)
+    .then((response) => {
+      console.log(response);
+      return response;
+    });
+};
