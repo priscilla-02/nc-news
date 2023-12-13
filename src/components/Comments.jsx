@@ -12,6 +12,7 @@ const deletedObj = {
   default: "default",
   completedDelete: "completedDelete",
   inProgress: "inProgress",
+  failed: "unsuccessful",
 };
 
 const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
@@ -32,19 +33,27 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
     });
   }, [article_id, refreshComment]);
 
-  const handleDeleteComment = (comment_id) => {
+  const handleDeleteComment = async (comment_id) => {
     setDeleteCurrentComment(comment_id);
     setDeletedBol(deletedObj.inProgress);
-    setTimeout(() => {
-      deleteComment(comment_id).then(() => {
-        setDeletedBol(deletedObj.completedDelete);
-      });
-    }, 2000);
-    setTimeout(() => {
-      setRefreshComment(true);
-    }, 2000);
-  };
 
+    try {
+      const result = await deleteComment(comment_id);
+
+      if (result && result.status === 204) {
+        setTimeout(() => {
+          setDeletedBol(deletedObj.completedDelete);
+        }, 2000);
+
+        setTimeout(() => {
+          setRefreshComment(true);
+        }, 3000);
+      }
+    } catch (error) {
+      console.log("failed");
+      setDeletedBol(deletedObj.failed);
+    }
+  };
   return (
     <>
       {isLoading ? (
@@ -90,7 +99,9 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                         className={`${
                           deletedBol === deletedObj.inProgress
                             ? "text-emerald-500"
-                            : "text-red-700"
+                            : deletedBol === deletedObj.failed
+                            ? "text-red-700"
+                            : "text-gray-700"
                         } pt-5`}
                       >
                         {comment.comment_id === deleteCurrentComment &&
@@ -99,6 +110,9 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                           : comment.comment_id === deleteCurrentComment &&
                             deletedBol === deletedObj.completedDelete
                           ? "Deleted"
+                          : comment.comment_id === deleteCurrentComment &&
+                            deletedBol === deletedObj.failed
+                          ? "Deletion Unsuccessful"
                           : ""}
                       </div>
                     </div>
