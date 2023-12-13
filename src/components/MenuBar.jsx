@@ -5,7 +5,11 @@ import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import { useState, useEffect } from "react";
 import { fetchAllTopics } from "../api";
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  useSearchParams,
+  createSearchParams,
+} from "react-router-dom";
 
 const MenuBar = () => {
   const [showMenuBol, setShowMenuBol] = useState(false);
@@ -13,6 +17,8 @@ const MenuBar = () => {
   const [selectTopic, setSelectTopic] = useState("");
   const [slug, setSlug] = useState("");
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [sortBy, setSortBy] = useState();
 
   useEffect(() => {
     fetchAllTopics().then((topics) => {
@@ -24,6 +30,15 @@ const MenuBar = () => {
     setSelectTopic(topic);
     setSlug(description);
     navigate(`/topics/${topic}`);
+  };
+
+  const handleSelectSoryBy = (e) => {
+    console.log(e.target.value);
+    navigate({
+      pathname: "/sortby/",
+      search: createSearchParams({ sort_by: e.target.value }).toString(),
+    });
+    setSortBy(e.target.value);
   };
 
   return (
@@ -65,9 +80,9 @@ const MenuBar = () => {
               <InputLabel variant="standard" htmlFor="uncontrolled-native">
                 Sort By
               </InputLabel>
-              <NativeSelect>
+              <NativeSelect value={sortBy} onChange={handleSelectSoryBy}>
                 <option value="created_at">Date</option>
-                <option value="title">Title</option>
+                <option value="votes">Votes</option>
                 <option value="topic">Topic</option>
                 <option value="author">Author</option>
               </NativeSelect>
@@ -84,7 +99,6 @@ const MenuBar = () => {
           </Box>
         </section>
       </div>
-      <div></div>
     </div>
   );
 };

@@ -66,3 +66,9 @@ export const fetchAllTopics = () => {
     return data.topics;
   });
 };
+
+export const fetchArticlesWithQueries = () => {
+  return newsAPI.get("/articles", { params: chosenParams }).then(({ data }) => {
+    return data;
+  });
+};
