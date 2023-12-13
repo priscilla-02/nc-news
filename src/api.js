@@ -60,3 +60,9 @@ export const deleteComment = (comment_id) => {
     return data;
   });
 };
+
+export const fetchAllTopics = () => {
+  return newsAPI.get("/topics").then(({ data }) => {
+    return data.topics;
+  });
+};

@@ -3,10 +3,28 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchAllTopics } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const MenuBar = () => {
   const [showMenuBol, setShowMenuBol] = useState(false);
+  const [topicsList, setTopicsList] = useState([]);
+  const [selectTopic, setSelectTopic] = useState("");
+  const [slug, setSlug] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchAllTopics().then((topics) => {
+      setTopicsList(topics);
+    });
+  }, [setTopicsList]);
+
+  const handleSelectTopic = (topic, description) => {
+    setSelectTopic(topic);
+    setSlug(description);
+    navigate(`/topics/${topic}`);
+  };
 
   return (
     <div className="bg-gray-400">
@@ -18,12 +36,29 @@ const MenuBar = () => {
       </Button>
 
       <div className={showMenuBol ? "block" : "hidden"}>
-        <section>
-          Topic
-          <Button variant="outlined">Topic 1</Button>
-          <Button variant="outlined">Topic 2</Button>
-          <Button variant="outlined">Topic 3</Button>
+        <div>
+          <strong> Topics </strong>
+        </div>
+        <section className="flex justify-center ">
+          {topicsList.length > 0 &&
+            topicsList.map((topic) => {
+              return (
+                <div key={topic.slug} className=" m-3">
+                  <button
+                    onClick={() =>
+                      handleSelectTopic(topic.slug, topic.description)
+                    }
+                    className={`${
+                      selectTopic == topic.slug ? "bg-blue-700 " : "bg-sky-500"
+                    } bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full x-5`}
+                  >
+                    <div> {topic.slug}</div>
+                  </button>
+                </div>
+              );
+            })}
         </section>
+        <p className="text-blue-700 pb-2 m-2">{slug}</p>
         <section>
           <Box sx={{ minWidth: 50 }}>
             <FormControl>
@@ -49,6 +84,7 @@ const MenuBar = () => {
           </Box>
         </section>
       </div>
+      <div></div>
     </div>
   );
 };

@@ -8,10 +8,12 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import LogInModal from "./LoginModal";
 import { ModalContext } from "../contexts/ModalContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const { openModal, setOpenModal } = useContext(ModalContext);
+  const navigate = useNavigate();
 
   const openLoginModal = () => {
     if (user) {
@@ -21,11 +23,18 @@ const Header = () => {
     }
   };
 
+  const handleHeaderClick = () => {
+    navigate("/");
+  };
+
   return (
     <header className="bg-gray-400">
       {openModal && <LogInModal setOpenModal={setOpenModal} />}
 
-      <h1 className="text-3xl font-bold underline text-blue-500 desktop:text-black">
+      <h1
+        className="text-3xl font-bold underline text-blue-500 desktop:text-black cursor-pointer"
+        onClick={handleHeaderClick}
+      >
         <NewspaperIcon /> News Project
       </h1>
       <div className="desktop:block hidden absolute top-2 right-2 cursor-pointer">
@@ -60,7 +69,6 @@ const Header = () => {
           )}
         </Button>
       </div>
-      <p>Topic Description</p>
     </header>
   );
 };

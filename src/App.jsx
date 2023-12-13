@@ -28,6 +28,12 @@ function App() {
                 }
               />
               <Route path="/articles/:article_id" element={<SingleArticle />} />
+              <Route
+                path="/topics/:topic"
+                element={
+                  <ArticleList articles={articles} setArticles={setArticles} />
+                }
+              />
             </Routes>
           </ModalProvider>
         </UserProvider>
