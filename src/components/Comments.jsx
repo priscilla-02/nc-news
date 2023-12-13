@@ -1,13 +1,25 @@
 import { useEffect, useState } from "react";
-import { fetchCommentsByArticleId } from "../api";
+import { deleteComment, fetchCommentsByArticleId } from "../api";
 import { sqlDateFormatter } from "../utils";
 import { LoadingContext } from "../contexts/LoadingContext";
 import { useContext } from "react";
 import Loading from "./Loading";
+import Button from "@mui/material/Button";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import { UserContext } from "../contexts/UserContext";
+
+const deletedObj = {
+  default: "default",
+  completedDelete: "completedDelete",
+  inProgress: "inProgress",
+};
 
 const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
   const [commentList, setCommentList] = useState([]);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
+  const { user } = useContext(UserContext);
+  const [deleteCurrentComment, setDeleteCurrentComment] = useState(null);
+  const [deletedBol, setDeletedBol] = useState(deletedObj.default);
 
   useEffect(() => {
     if (refreshComment) {
@@ -19,6 +31,19 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
       setRefreshComment(false);
     });
   }, [article_id, refreshComment]);
+
+  const handleDeleteComment = (comment_id) => {
+    setDeleteCurrentComment(comment_id);
+    setDeletedBol(deletedObj.inProgress);
+    setTimeout(() => {
+      deleteComment(comment_id).then(() => {
+        setDeletedBol(deletedObj.completedDelete);
+      });
+    }, 2000);
+    setTimeout(() => {
+      setRefreshComment(true);
+    }, 2000);
+  };
 
   return (
     <>
@@ -46,6 +71,37 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                     <br />
 
                     <p>"{comment.body}"</p>
+                    <div
+                      className={
+                        user && user.username === comment.author
+                          ? "block"
+                          : "hidden"
+                      }
+                    >
+                      <Button
+                        variant="outlined"
+                        className="cursor-pointer"
+                        onClick={() => handleDeleteComment(comment.comment_id)}
+                      >
+                        <DeleteForeverRoundedIcon />
+                        Delete
+                      </Button>
+                      <div
+                        className={`${
+                          deletedBol === deletedObj.inProgress
+                            ? "text-emerald-500"
+                            : "text-red-700"
+                        } pt-5`}
+                      >
+                        {comment.comment_id === deleteCurrentComment &&
+                        deletedBol === deletedObj.inProgress
+                          ? "Deleting..."
+                          : comment.comment_id === deleteCurrentComment &&
+                            deletedBol === deletedObj.completedDelete
+                          ? "Deleted"
+                          : ""}
+                      </div>
+                    </div>
                   </li>
                 );
               })
