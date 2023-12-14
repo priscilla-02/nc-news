@@ -40,6 +40,7 @@ const MenuBar = () => {
 
   const handleSelectSortBy = (category) => {
     setSortBy(category);
+    setSortByDropdown(false);
     navigate({
       pathname: "/sortby/",
       search: createSearchParams({
@@ -51,6 +52,7 @@ const MenuBar = () => {
 
   const handleSelectOrder = (order) => {
     setOrder(order);
+    setOrderDropdown(false);
     navigate({
       pathname: "/sortby/",
       search: createSearchParams({
