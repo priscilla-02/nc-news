@@ -65,3 +65,14 @@ export const fetchAllTopics = () => {
     return data.topics;
   });
 };
+
+export const ErrorPath = () => {
+  return newsAPI
+    .get("errorStatus")
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
