@@ -8,10 +8,17 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import LogInModal from "./LoginModal";
 import { ModalContext } from "../contexts/ModalContext";
+import { useNavigate } from "react-router-dom";
+import ArrowLeftRoundedIcon from "@mui/icons-material/ArrowLeftRounded";
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const { openModal, setOpenModal } = useContext(ModalContext);
+  const navigate = useNavigate();
+
+  const goBackFunc = () => {
+    navigate(-1);
+  };
 
   const openLoginModal = () => {
     if (user) {
@@ -21,11 +28,29 @@ const Header = () => {
     }
   };
 
+  const handleHeaderClick = () => {
+    navigate("/");
+  };
+
   return (
     <header className="bg-gray-400">
       {openModal && <LogInModal setOpenModal={setOpenModal} />}
-
-      <h1 className="text-3xl font-bold underline text-blue-500 desktop:text-black">
+      <div className="absolute top-10 left-10  px-4 py-3 text-right">
+        <button
+          type="button"
+          className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+          onClick={goBackFunc}
+        >
+          <i className="fas fa-times">
+            <ArrowLeftRoundedIcon />
+            Back
+          </i>
+        </button>
+      </div>
+      <h1
+        className="text-3xl font-bold underline text-blue-500 desktop:text-black cursor-pointer"
+        onClick={handleHeaderClick}
+      >
         <NewspaperIcon /> News Project
       </h1>
       <div className="desktop:block hidden absolute top-2 right-2 cursor-pointer">
@@ -60,7 +85,6 @@ const Header = () => {
           )}
         </Button>
       </div>
-      <p>Topic Description</p>
     </header>
   );
 };

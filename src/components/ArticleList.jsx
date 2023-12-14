@@ -1,23 +1,31 @@
 import { useState, useEffect } from "react";
 import { fetchAllArticles } from "../api";
 import HourglassBottomTwoToneIcon from "@mui/icons-material/HourglassBottomTwoTone";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ArticleList = ({ articles, setArticles }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
+  const { topic } = useParams();
+
   useEffect(() => {
     setIsLoading(true);
-    console.log("hi");
 
     fetchAllArticles().then((articleList) => {
-      setArticles(articleList);
-      console.log("after");
+      if (topic) {
+        const filteredArticles = articleList.filter(
+          (article) => article.topic === topic
+        );
+        setArticles(filteredArticles);
+      } else {
+        setArticles(articleList);
+      }
+
       setIsLoading(false);
     });
-  }, []);
+  }, [topic]);
 
   const handleClick = (article_id) => {
     navigate(`/articles/${article_id}`);
