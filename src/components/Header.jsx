@@ -8,16 +8,21 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import LogInModal from "./LoginModal";
 import { ModalContext } from "../contexts/ModalContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ArrowLeftRoundedIcon from "@mui/icons-material/ArrowLeftRounded";
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const { openModal, setOpenModal } = useContext(ModalContext);
   const navigate = useNavigate();
+  const state = useLocation();
 
   const goBackFunc = () => {
-    navigate(-1);
+    if (state.pathname == "/error") {
+      navigate("/", { replace: true });
+    } else {
+      navigate(-1);
+    }
   };
 
   const openLoginModal = () => {
