@@ -41,9 +41,6 @@ export const fetchUsers = () => {
 };
 
 export const postComment = (commentInput, article_id, username) => {
-  // console.log(commentInput);
-  // console.log(article_id);
-  console.log(username);
   const postBody = {
     username: username,
     body: commentInput,
@@ -51,7 +48,6 @@ export const postComment = (commentInput, article_id, username) => {
   return newsAPI
     .post(`/articles/${article_id}/comments`, postBody)
     .then((response) => {
-      console.log(response);
       return response;
     });
 };

@@ -50,7 +50,6 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
         }, 3000);
       }
     } catch (error) {
-      console.log("failed");
       setDeletedBol(deletedObj.failed);
     }
   };
