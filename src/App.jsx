@@ -35,7 +35,7 @@ function App() {
                   <ArticleList articles={articles} setArticles={setArticles} />
                 }
               />
-              <Route path="/sortby/" element={<SortedArticle />}></Route>
+              <Route path="/sortby" element={<SortedArticle />}></Route>
             </Routes>
           </ModalProvider>
         </UserProvider>
