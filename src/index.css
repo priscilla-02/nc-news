@@ -7,3 +7,19 @@ root {
   color: rgba(28, 2, 2, 0.87);
   background-color: #696666;
 }
+
+@layer components {
+  .slide-right {
+    background-color: aqua;
+    animation: 5s slide-right;
+  }
+
+  @keyframes slide-right {
+    from {
+      margin-left: -100%;
+    }
+    to {
+      margin-left: 0%;
+    }
+  }
+}

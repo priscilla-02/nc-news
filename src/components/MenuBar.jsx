@@ -7,6 +7,7 @@ import {
   createSearchParams,
 } from "react-router-dom";
 import { sortByObj } from "./SortedArticle";
+import "../App.css";
 
 export const sortByText = {
   [sortByObj.created_at]: "Date",
@@ -25,6 +26,7 @@ const MenuBar = () => {
   const [order, setOrder] = useState("desc");
   const [orderDropdown, setOrderDropdown] = useState(false);
   const [sortBydropdown, setSortByDropdown] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
     fetchAllTopics(sortBy).then((topics) => {
@@ -33,9 +35,11 @@ const MenuBar = () => {
   }, [setTopicsList]);
 
   const handleSelectTopic = (topic, description) => {
+    setAnimate(true);
     setSelectTopic(topic);
     setSlug(description);
     navigate(`/topics/${topic}`);
+    // setAnimate(false);
   };
 
   const handleSelectSortBy = (category) => {
@@ -88,13 +92,15 @@ const MenuBar = () => {
                       selectTopic == topic.slug ? "bg-blue-700 " : "bg-sky-500"
                     } bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full x-5`}
                   >
-                    <div> {topic.slug}</div>
+                    <div>{topic.slug}</div>
                   </button>
                 </div>
               );
             })}
         </section>
-        <p className="text-blue-700 pb-2 m-2">{slug}</p>
+        <p className={`${animate ? "slide-right" : ""} text-blue-700 pb-2 m-2`}>
+          {slug}
+        </p>
 
         <div className="relative inline-block">
           <button
