@@ -4,3 +4,75 @@
   padding: 0;
   text-align: center;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Diplomata+SC&display=swap");
+
+root {
+  color: rgba(28, 2, 2, 0.87);
+  background-color: #696666;
+}
+
+/* slide-right {
+  background-color: aqua;
+  animation: 3s slide-right;
+}
+
+@keyframes slide-right {
+  from {
+    margin-left: -100%;
+  }
+  to {
+    margin-left: 0%;
+  }
+} */
+
+@layer base {
+  slide-right {
+    background-color: aqua;
+    animation: 3s slide-right;
+  }
+
+  @keyframes slide-right {
+    from {
+      margin-left: -100%;
+    }
+    to {
+      margin-left: 0%;
+    }
+  }
+}
+
+@layer components {
+  slide-right {
+    background-color: aqua;
+    animation: 3s slide-right;
+  }
+
+  @keyframes slide-right {
+    from {
+      margin-left: -100%;
+    }
+    to {
+      margin-left: 0%;
+    }
+  }
+}
+
+@layer utilities {
+  slide-right {
+    background-color: aqua;
+    animation: 3s slide-right;
+  }
+
+  @keyframes slide-right {
+    from {
+      margin-left: -100%;
+    }
+    to {
+      margin-left: 0%;
+    }
+  }
+}

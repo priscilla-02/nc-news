@@ -4,10 +4,12 @@ const newsAPI = axios.create({
   baseURL: "https://news-api-905c.onrender.com/api",
 });
 
-export const fetchAllArticles = () => {
-  return newsAPI.get("/articles").then(({ data }) => {
-    return data.articles;
-  });
+export const fetchAllArticles = (sortBy, order) => {
+  return newsAPI
+    .get("/articles", { params: { sort_by: sortBy, order: order } })
+    .then(({ data }) => {
+      return data.articles;
+    });
 };
 
 export const fetchSingleArticle = (article_id) => {
@@ -63,5 +65,11 @@ export const deleteComment = (comment_id) => {
 export const fetchAllTopics = () => {
   return newsAPI.get("/topics").then(({ data }) => {
     return data.topics;
+  });
+};
+
+export const fetchArticlesWithQueries = () => {
+  return newsAPI.get("/articles", { params: chosenParams }).then(({ data }) => {
+    return data;
   });
 };

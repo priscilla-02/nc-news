@@ -1,0 +1,66 @@
+import { useEffect, useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { fetchAllArticles } from "../api";
+import { sqlDateFormatter } from "../utils";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
+export const sortByObj = {
+  created_at: "created_at",
+  votes: "votes",
+  topic: "topic",
+  author: "author",
+};
+
+const SortedArticle = () => {
+  const [searchParams] = useSearchParams();
+  const [sortedArticles, setSortedArticles] = useState([]);
+  const sort_by = searchParams.get("sort_by");
+  const order = searchParams.get("order");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchAllArticles(sort_by, order).then((articles) => {
+      setSortedArticles(articles);
+    });
+  }, [sort_by, order]);
+
+  const handleClick = (article_id) => {
+    navigate(`/articles/${article_id}`);
+  };
+
+  return (
+    <main className="flex flex-wrap px-[50px] justify-center ">
+      {sortedArticles.map((article) => {
+        return (
+          <section
+            key={article.article_id}
+            className="flex justify-center w-[50vw] m-2 border-solid border-2 rounded-lg p-5 border-indigo-800 cursor-pointer"
+          >
+            <article onClick={() => handleClick(article.article_id)}>
+              <img src={article.article_img_url} alt={article.title} />
+              <p>{article.title}</p>
+
+              <div className="flex justify-center ">
+                <div className="border-solid border-2 border-sky-500 rounded-xl px-5 m-5 desktop:w-[20vw] w-[100%]">
+                  {sort_by == sortByObj.votes ? (
+                    <>
+                      {article.votes} <FavoriteIcon />
+                    </>
+                  ) : sort_by == sortByObj.created_at ? (
+                    sqlDateFormatter(article.created_at)
+                  ) : sort_by == sortByObj.author ? (
+                    <>By {article.author}</>
+                  ) : (
+                    <>{article.topic}</>
+                  )}
+                </div>
+              </div>
+            </article>
+          </section>
+        );
+      })}
+    </main>
+  );
+};
+
+export default SortedArticle;

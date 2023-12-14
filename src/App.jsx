@@ -9,6 +9,7 @@ import { LoadingProvider } from "./contexts/LoadingContext";
 import { UserProvider } from "./contexts/UserContext";
 import { ModalProvider } from "./contexts/ModalContext";
 import LogInModal from "./components/LoginModal";
+import SortedArticle from "./components/SortedArticle";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -34,6 +35,7 @@ function App() {
                   <ArticleList articles={articles} setArticles={setArticles} />
                 }
               />
+              <Route path="/sortby" element={<SortedArticle />}></Route>
             </Routes>
           </ModalProvider>
         </UserProvider>
