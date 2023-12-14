@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchSingleArticle } from "../api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { sqlDateFormatter } from "../utils";
 import HourglassBottomTwoToneIcon from "@mui/icons-material/HourglassBottomTwoTone";
@@ -10,6 +10,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { updateArticleVote } from "../api";
 import PostComment from "./PostComment";
+import { ErrorContext } from "../contexts/ErrorHandlingContext";
 
 const SingleArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,18 +18,25 @@ const SingleArticle = () => {
   const [commentCount, setCommentCount] = useState(0);
   const [likesCount, setLikesCount] = useState(0);
   const [clickLike, setClickLike] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(undefined);
+  const [likeErrorMsg, setLikeErrorMsg] = useState(undefined);
   const [refreshComment, setRefreshComment] = useState(false);
   const { article_id } = useParams();
+  const { setErrMsg } = useContext(ErrorContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
-    fetchSingleArticle(article_id).then((article) => {
-      setSingleArticle(article);
-      setCommentCount(article.comment_count);
-      setLikesCount(article.votes);
-      setIsLoading(false);
-    });
+    fetchSingleArticle(article_id)
+      .then((article) => {
+        setSingleArticle(article);
+        setCommentCount(article.comment_count);
+        setLikesCount(article.votes);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setErrMsg(error.response.data.message);
+        navigate("/error");
+      });
   }, [article_id]);
 
   const handleVotes = async (vote) => {
@@ -44,7 +52,7 @@ const SingleArticle = () => {
 
     const result = await updateArticleVote(article_id, voteNumber);
     if (result.status === 404) {
-      setErrorMsg("Like is not registered");
+      setLikeErrorMsg("Like is not registered");
     } else {
       setClickLike(true);
       setLikesCount(updateLike);
@@ -105,7 +113,7 @@ const SingleArticle = () => {
           >
             <FavoriteIcon />
           </Button>
-          {errorMsg && <p>{errorMsg}</p>}
+          {likeErrorMsg && <p>{likeErrorMsg}</p>}
         </div>
       </div>
       <PostComment setRefreshComment={setRefreshComment} />

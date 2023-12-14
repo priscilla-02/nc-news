@@ -10,6 +10,8 @@ import { UserProvider } from "./contexts/UserContext";
 import { ModalProvider } from "./contexts/ModalContext";
 import LogInModal from "./components/LoginModal";
 import SortedArticle from "./components/SortedArticle";
+import ErrorHandling from "./components/ErrorHandling";
+import { ErrorProvider } from "./contexts/ErrorHandlingContext";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -18,25 +20,37 @@ function App() {
       <LoadingProvider>
         <UserProvider>
           <ModalProvider>
-            <LogInModal />
-            <Header />
-            <MenuBar />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ArticleList articles={articles} setArticles={setArticles} />
-                }
-              />
-              <Route path="/articles/:article_id" element={<SingleArticle />} />
-              <Route
-                path="/topics/:topic"
-                element={
-                  <ArticleList articles={articles} setArticles={setArticles} />
-                }
-              />
-              <Route path="/sortby" element={<SortedArticle />}></Route>
-            </Routes>
+            <ErrorProvider>
+              <LogInModal />
+              <Header />
+              <MenuBar />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <ArticleList
+                      articles={articles}
+                      setArticles={setArticles}
+                    />
+                  }
+                />
+                <Route
+                  path="/articles/:article_id"
+                  element={<SingleArticle />}
+                />
+                <Route
+                  path="/topics/:topic"
+                  element={
+                    <ArticleList
+                      articles={articles}
+                      setArticles={setArticles}
+                    />
+                  }
+                />
+                <Route path="/*" element={<ErrorHandling />} />
+                <Route path="/sortby" element={<SortedArticle />} />
+              </Routes>
+            </ErrorProvider>
           </ModalProvider>
         </UserProvider>
       </LoadingProvider>

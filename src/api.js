@@ -68,8 +68,13 @@ export const fetchAllTopics = () => {
   });
 };
 
-export const fetchArticlesWithQueries = () => {
-  return newsAPI.get("/articles", { params: chosenParams }).then(({ data }) => {
-    return data;
-  });
+export const ErrorPath = () => {
+  return newsAPI
+    .get("errorStatus")
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
 };
