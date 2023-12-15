@@ -59,8 +59,10 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
         <Loading />
       ) : (
         <div>
-          <div className="font-bold text-2xl pt-20">Comments</div>
-          <ul className="flex flex-col items-center ">
+          <div className="font-bold text-3xl pt-20 text-sky-600 italic">
+            Comments
+          </div>
+          <ul className="flex flex-wrap justify-center items-center">
             {commentList.length === 0 ? (
               <p className="flex flex-col desktop:w-[80vw] w-[90vw] w-10 border-solid border-2 border-sky-500 rounded-xl my-4 p-2">
                 Be the first one to comment!
@@ -70,7 +72,7 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                 return (
                   <li
                     key={comment.comment_id}
-                    className="flex flex-col desktop:w-[80vw] w-[90vw] border-solid border-2 border-sky-500 rounded-xl my-4 p-2"
+                    className="flex flex-col desktop:w-[40vw] min-h-[250px] w-[90vw] border-solid border-2 border-sky-600 rounded-xl m-4 px-3 justify-center items-center"
                   >
                     <p>
                       {comment.author} posted on{" "}
@@ -82,7 +84,7 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                     <div
                       className={
                         user && user.username === comment.author
-                          ? "block"
+                          ? "block pt-2"
                           : "hidden"
                       }
                     >
@@ -101,7 +103,7 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                             : deletedBol === deletedObj.failed
                             ? "text-red-700"
                             : "text-gray-700"
-                        } pt-5`}
+                        }`}
                       >
                         {comment.comment_id === deleteCurrentComment &&
                         deletedBol === deletedObj.inProgress

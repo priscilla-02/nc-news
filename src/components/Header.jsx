@@ -10,7 +10,7 @@ import LogInModal from "./LoginModal";
 import { ModalContext } from "../contexts/ModalContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import ArrowLeftRoundedIcon from "@mui/icons-material/ArrowLeftRounded";
-
+import Newspaper from "../icons/newspaper.svg";
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const { openModal, setOpenModal } = useContext(ModalContext);
@@ -38,27 +38,35 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-400">
+    <header className="">
       {openModal && <LogInModal setOpenModal={setOpenModal} />}
-      <div className="absolute top-10 left-10  px-4 py-3 text-right">
+      <div className="absolute top-8 left-5  px-4 py-3 text-right">
         <button
           type="button"
-          className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+          className="flex items-center justify-center pr-2 bg-sky-600 text-white rounded hover:bg-blue-600 mr-2 text-md "
           onClick={goBackFunc}
         >
-          <i className="fas fa-times">
-            <ArrowLeftRoundedIcon />
-            Back
-          </i>
+          <ArrowLeftRoundedIcon />
+          <i> Back</i>
         </button>
       </div>
-      <h1
-        className="text-3xl font-bold underline text-blue-500 desktop:text-black cursor-pointer"
-        onClick={handleHeaderClick}
-      >
-        <NewspaperIcon /> News Project
-      </h1>
-      <div className="desktop:block hidden absolute top-2 right-2 cursor-pointer">
+
+      <div className="flex justify-center items-center">
+        <img src={Newspaper} alt="Newspaper Icon" className="pr-3 mt-12" />
+        <div className="flex flex-col justify-end items-end">
+          <i
+            className="text-sky-600 mt-20 text-5xl font-bold text-sky-600 cursor-pointer"
+            onClick={handleHeaderClick}
+          >
+            NC NEWS
+          </i>
+          <div className="text-sky-600 text-sm mb-5">
+            <i>Brought to you by Press PC</i>
+          </div>
+        </div>
+      </div>
+
+      <div className="desktop:block hidden absolute top-10 right-10 cursor-pointer">
         <Button variant="outlined" onClick={openLoginModal}>
           <PersonIcon />
           {user ? (
@@ -75,7 +83,7 @@ const Header = () => {
           )}
         </Button>
       </div>
-      <div className="desktop:hidden block absolute top-2 right-2 cursor-pointer">
+      <div className="desktop:hidden block absolute top-8 right-8 cursor-pointer">
         <Button variant="outlined" onClick={openLoginModal}>
           {user ? (
             <>

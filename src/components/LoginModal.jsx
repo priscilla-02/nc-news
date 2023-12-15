@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { fetchUsers } from "../api";
 import { ModalContext } from "../contexts/ModalContext";
+import ArrowLeftRoundedIcon from "@mui/icons-material/ArrowLeftRounded";
 
 const LogInModal = () => {
   const { setUser } = useContext(UserContext);
@@ -56,10 +57,14 @@ const LogInModal = () => {
             <div className="bg-gray-200 px-4 py-3 text-right">
               <button
                 type="button"
-                className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+                className="py-2 px-4 bg-sky-600 text-white rounded hover:bg-gray-700 mr-2"
                 onClick={() => setOpenModal(false)}
               >
-                <i className="fas fa-times"> Go Back</i>
+                <i>
+                  {" "}
+                  <ArrowLeftRoundedIcon />
+                  Go Back
+                </i>
               </button>
             </div>
           </div>

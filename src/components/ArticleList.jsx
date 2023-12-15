@@ -56,12 +56,12 @@ const ArticleList = ({ articles, setArticles }) => {
     );
 
   return (
-    <main className="flex flex-wrap px-[50px] justify-center">
+    <main className="flex flex-wrap px-[50px] justify-center pt-8 pb-16">
       {articles.map((article) => {
         return (
           <section
             key={article.article_id}
-            className="desktop:w-[20vw] w-[40vw] m-2"
+            className="desktop:w-[20vw] w-[40vw] m-2 border-2 border-light-gray-700 p-4 m-3 rounded-lg shadow-lg hover:border-sky-600 cursor-pointer hover:scale-110"
           >
             <article onClick={() => handleClick(article.article_id)}>
               <img src={article.article_img_url} alt={article.title} />

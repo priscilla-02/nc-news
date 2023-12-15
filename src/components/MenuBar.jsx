@@ -8,7 +8,8 @@ import {
 } from "react-router-dom";
 import { sortByObj } from "./SortedArticle";
 import "../App.css";
-
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 export const sortByText = {
   [sortByObj.created_at]: "Date",
   [sortByObj.votes]: "Votes",
@@ -38,8 +39,13 @@ const MenuBar = () => {
     setAnimate(true);
     setSelectTopic(topic);
     setSlug(description);
-    navigate(`/topics/${topic}`);
-    // setAnimate(false);
+    if (topic == "all") {
+      console.log("1");
+      navigate(`/`);
+    } else {
+      console.log("2");
+      navigate(`/topics/${topic}`);
+    }
   };
 
   const handleSelectSortBy = (category) => {
@@ -69,17 +75,37 @@ const MenuBar = () => {
   return (
     <div>
       <Button
+        sx={{ textTransform: "none" }}
         variant="outlined"
         onClick={() => setShowMenuBol((prev) => !prev)}
       >
-        {showMenuBol ? "Hide Filter" : "Show Filter"}
+        {showMenuBol ? " Hide Filter" : "Show Filter"}
+        {showMenuBol ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       </Button>
 
-      <div className={showMenuBol ? "block" : "hidden"}>
-        <div>
-          <strong> Topics </strong>
-        </div>
-        <section className="flex justify-center ">
+      <div className={showMenuBol ? "block pt-5" : "hidden"}>
+        <section className="flex justify-center">
+          <div key="all" className=" m-3">
+            <button
+              onClick={() => handleSelectTopic("all", "All topics")}
+              className={`${
+                selectTopic == "all" ? "bg-blue-700 " : "bg-sky-600"
+              } bg-sky-600 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full x-5 w-[90px]`}
+            >
+              <div>All</div>
+            </button>
+
+            <p
+              className={`${
+                animate && selectTopic == "all"
+                  ? "absolute slide-right left-[50%] w-[80vw] translate-center"
+                  : "hidden"
+              } text-sky-600 pb-2 my-10 text-xl italic`}
+            >
+              {slug}
+            </p>
+          </div>
+
           {topicsList.length > 0 &&
             topicsList.map((topic) => {
               return (
@@ -89,23 +115,30 @@ const MenuBar = () => {
                       handleSelectTopic(topic.slug, topic.description)
                     }
                     className={`${
-                      selectTopic == topic.slug ? "bg-blue-700 " : "bg-sky-500"
-                    } bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full x-5`}
+                      selectTopic == topic.slug ? "bg-blue-700 " : "bg-sky-600"
+                    } bg-sky-600 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full x-5 w-[90px]`}
                   >
                     <div>{topic.slug}</div>
                   </button>
+
+                  <p
+                    className={`${
+                      animate && selectTopic == topic.slug
+                        ? "fixed slide-right left-[50%] w-[80vw] translate-center"
+                        : "hidden"
+                    } text-sky-600 pb-2 my-10 text-xl italic absolute`}
+                  >
+                    {slug}
+                  </p>
                 </div>
               );
             })}
         </section>
-        <p className={`${animate ? "slide-right" : ""} text-blue-700 pb-2 m-2`}>
-          {slug}
-        </p>
 
-        <div className="relative inline-block">
+        <div className="relative inline-block pt-5 m-8">
           <button
             type="button"
-            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-sky-600 hover:bg-gray-50"
             onClick={() => setSortByDropdown((prev) => !prev)}
           >
             Sort By
@@ -114,33 +147,33 @@ const MenuBar = () => {
         <div
           className={`${
             sortBydropdown ? "absolute" : "hidden"
-          }  left-[24%] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          } max-w-[100px] left-[45%] translate-x-[-45%] left-0 ml-auto mr-auto top-[370px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
           onChange={handleSelectSortBy}
         >
-          <div className="py-1" role="none">
+          <div className="py-1">
             <a
-              className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
               onClick={() => handleSelectSortBy(sortByObj.created_at)}
               value={sortByObj.created_at}
             >
               {sortByText[sortByObj.created_at]}
             </a>
             <a
-              className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
               onClick={() => handleSelectSortBy(sortByObj.votes)}
               value={sortByObj.votes}
             >
               {sortByText[sortByObj.votes]}
             </a>
             <a
-              className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
               onClick={() => handleSelectSortBy(sortByObj.topic)}
               value={sortByObj.topic}
             >
               {sortByText[sortByObj.topic]}
             </a>
             <a
-              className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
               onClick={() => handleSelectSortBy(sortByObj.author)}
               value={sortByObj.author}
             >
@@ -151,7 +184,7 @@ const MenuBar = () => {
         <div className="relative inline-block">
           <button
             type="button"
-            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-sky-600 hover:bg-gray-50"
             onClick={() => setOrderDropdown((prev) => !prev)}
           >
             Order By
@@ -160,19 +193,19 @@ const MenuBar = () => {
         <div
           className={`${
             orderDropdown ? "absolute" : "hidden"
-          }  right-[24%] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          } max-w-[100px] left-[60%] translate-x-[-60%] ml-auto mr-auto top-[370px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
           onChange={handleSelectOrder}
         >
-          <div className="py-1" role="none">
+          <div className="py-1">
             <a
-              className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
               onClick={() => handleSelectOrder("desc")}
               value="desc"
             >
               Descending
             </a>
             <a
-              className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
               onClick={() => handleSelectOrder("asc")}
               value="asc"
             >

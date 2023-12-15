@@ -62,6 +62,10 @@ const SingleArticle = () => {
     }
   };
 
+  const handleClickTopic = (topic) => {
+    navigate(`/topics/${topic}`);
+  };
+
   if (isLoading)
     return (
       <p>
@@ -71,16 +75,19 @@ const SingleArticle = () => {
     );
 
   return (
-    <div className="bg-gray-400 pt-10">
-      <div className="flex flex-col desktop:w-[80vw] w-[90vw] items-center mx-auto border-solid border-2 rounded-lg p-5 border-indigo-800">
+    <div className="pt-10">
+      <div className="flex flex-col desktop:w-[80vw] w-[90vw] items-center mx-auto border-solid border-2 rounded-lg p-5 border-sky-600">
         <div className="font-bold text-2xl">{singleArticle.title}</div>
 
-        <div className="flex space-even">
-          <div className="flex border-solid border-2 border-sky-500 rounded-xl px-5 m-5">
+        <div className="flex space-between py-4">
+          <div className="flex border-solid border-2 border-sky-600 rounded-xl px-5 m-5">
             {singleArticle.author} at{" "}
             {sqlDateFormatter(singleArticle.created_at)}
           </div>
-          <div className="flex items-center border-solid border-2 border-sky-500 hover:border-sky-900 rounded-xl cursor-pointer px-5 m-5">
+          <div
+            className="flex items-center border-solid border-2 border-sky-600 hover:border-sky-900 rounded-xl cursor-pointer px-5 m-5"
+            onClick={() => handleClickTopic(singleArticle.topic)}
+          >
             {singleArticle.topic}
           </div>
         </div>
@@ -88,32 +95,36 @@ const SingleArticle = () => {
           <img src={singleArticle.article_img_url} />
         </div>
 
-        <div className="w-[75%] py-5">{singleArticle.body}</div>
-        <div className="flex space-even">
-          <div className="flex border-solid border-2 border-sky-500 rounded-xl px-5 m-5">
+        <div className="w-[75%] pt-5">{singleArticle.body}</div>
+        <div className="flex justify-evenly w-[75%]">
+          <div className="flex border-solid border-2 border-sky-600 rounded-xl px-8 m-8">
             {commentCount} comments
           </div>
-          <div className="flex border-solid border-2 border-sky-500 rounded-xl px-5 m-5 ">
-            <FavoriteOutlinedIcon />
+          <div className="flex border-solid border-2 border-sky-600 rounded-xl px-8 m-8">
+            <FavoriteOutlinedIcon style={{ color: "#0284C7" }} />
             {likesCount} likes
           </div>
         </div>
-        <div>
-          <Button
-            variant={clickLike ? "contained" : "outlined"}
-            className="cursor-pointer"
-            onClick={() => handleVotes("unlike")}
-          >
-            <FavoriteBorderIcon />
-          </Button>
-          <Button
-            variant={clickLike ? "contained" : "outlined"}
-            className="cursor-pointer"
-            onClick={() => handleVotes("like")}
-          >
-            <FavoriteIcon />
-          </Button>
-          {likeErrorMsg && <p>{likeErrorMsg}</p>}
+        <div className="flex justify-evenly w-[75%]">
+          <div>
+            <Button
+              variant={clickLike ? "contained" : "outlined"}
+              className="cursor-pointer hover:border-sky-900"
+              onClick={() => handleVotes("unlike")}
+            >
+              <FavoriteBorderIcon />
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant={clickLike ? "contained" : "outlined"}
+              className="cursor-pointer hover:border-sky-900"
+              onClick={() => handleVotes("like")}
+            >
+              <FavoriteIcon />
+            </Button>
+            {likeErrorMsg && <p>{likeErrorMsg}</p>}
+          </div>
         </div>
       </div>
       <PostComment setRefreshComment={setRefreshComment} />
