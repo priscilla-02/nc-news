@@ -80,12 +80,12 @@ const SingleArticle = () => {
         <div className="font-bold text-2xl">{singleArticle.title}</div>
 
         <div className="flex space-between py-4">
-          <div className="flex border-solid border-2 border-sky-600 rounded-xl px-5 m-5">
+          <div className="flex border-solid border-2 border-sky-600 bg-sky-600 text-white rounded-xl px-5 m-5">
             {singleArticle.author} at{" "}
             {sqlDateFormatter(singleArticle.created_at)}
           </div>
           <div
-            className="flex items-center border-solid border-2 border-sky-600 hover:border-sky-900 rounded-xl cursor-pointer px-5 m-5"
+            className="flex items-center border-solid border-2 border-sky-600 bg-sky-600 text-white  hover:border-sky-900 rounded-xl cursor-pointer px-5 m-5"
             onClick={() => handleClickTopic(singleArticle.topic)}
           >
             {singleArticle.topic}
@@ -97,11 +97,11 @@ const SingleArticle = () => {
 
         <div className="w-[75%] pt-5">{singleArticle.body}</div>
         <div className="flex justify-evenly w-[75%]">
-          <div className="flex border-solid border-2 border-sky-600 rounded-xl px-8 m-8">
+          <div className="flex border-solid border-2 border-sky-600 bg-sky-600 text-white rounded-xl px-8 m-8">
             {commentCount} comments
           </div>
-          <div className="flex border-solid border-2 border-sky-600 rounded-xl px-8 m-8">
-            <FavoriteOutlinedIcon style={{ color: "#0284C7" }} />
+          <div className="flex border-solid border-2 border-sky-600 bg-sky-600 text-white rounded-xl px-8 m-8">
+            <FavoriteOutlinedIcon style={{ color: "white", marginRight: 6 }} />
             {likesCount} likes
           </div>
         </div>
