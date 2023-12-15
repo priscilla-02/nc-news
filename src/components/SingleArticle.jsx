@@ -91,7 +91,7 @@ const SingleArticle = () => {
             {singleArticle.topic}
           </div>
         </div>
-        <div className="w-[75%]">
+        <div className="w-[75%] flex justify-center">
           <img src={singleArticle.article_img_url} />
         </div>
 

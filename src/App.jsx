@@ -12,6 +12,7 @@ import LogInModal from "./components/LoginModal";
 import SortedArticle from "./components/SortedArticle";
 import ErrorHandling from "./components/ErrorHandling";
 import { ErrorProvider } from "./contexts/ErrorHandlingContext";
+import Footer from "./components/Footer";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/*" element={<ErrorHandling />} />
                 <Route path="/sortby" element={<SortedArticle />} />
               </Routes>
+              <Footer />
             </ErrorProvider>
           </ModalProvider>
         </UserProvider>

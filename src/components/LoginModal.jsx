@@ -48,7 +48,7 @@ const LogInModal = () => {
                     className="py-3 px-5 cursor-pointer"
                     onClick={() => handleLogIn(user)}
                   >
-                    <p>{user.name}</p>
+                    <p className="py-5">{user.name}</p>
                     <img className="w-[75px] h-[75px]" src={user.avatar_url} />
                   </div>
                 );

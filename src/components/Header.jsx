@@ -67,7 +67,11 @@ const Header = () => {
       </div>
 
       <div className="desktop:block hidden absolute top-10 right-10 cursor-pointer">
-        <Button variant="outlined" onClick={openLoginModal}>
+        <Button
+          variant="outlined"
+          onClick={openLoginModal}
+          style={{ color: "#0284C7" }}
+        >
           <PersonIcon />
           {user ? (
             <>

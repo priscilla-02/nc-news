@@ -40,10 +40,8 @@ const MenuBar = () => {
     setSelectTopic(topic);
     setSlug(description);
     if (topic == "all") {
-      console.log("1");
-      navigate(`/`);
+      navigate("/");
     } else {
-      console.log("2");
       navigate(`/topics/${topic}`);
     }
   };
@@ -134,83 +132,88 @@ const MenuBar = () => {
               );
             })}
         </section>
-
-        <div className="relative inline-block pt-5 m-8">
-          <button
-            type="button"
-            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-sky-600 hover:bg-gray-50"
-            onClick={() => setSortByDropdown((prev) => !prev)}
-          >
-            Sort By
-          </button>
-        </div>
-        <div
-          className={`${
-            sortBydropdown ? "absolute" : "hidden"
-          } max-w-[100px] left-[45%] translate-x-[-45%] left-0 ml-auto mr-auto top-[370px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
-          onChange={handleSelectSortBy}
-        >
-          <div className="py-1">
-            <a
-              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
-              onClick={() => handleSelectSortBy(sortByObj.created_at)}
-              value={sortByObj.created_at}
+        <div className="flex justify-center items-center w-[100vw] pt-16">
+          <div className="relative">
+            <div className="mx-4">
+              <button
+                type="button"
+                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-sky-600 hover:bg-gray-50"
+                onClick={() => setSortByDropdown((prev) => !prev)}
+              >
+                Sort By
+              </button>
+            </div>
+            <div
+              className={`${
+                sortBydropdown ? "absolute" : "hidden"
+              } max-w-[100px] z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+              onChange={handleSelectSortBy}
             >
-              {sortByText[sortByObj.created_at]}
-            </a>
-            <a
-              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
-              onClick={() => handleSelectSortBy(sortByObj.votes)}
-              value={sortByObj.votes}
-            >
-              {sortByText[sortByObj.votes]}
-            </a>
-            <a
-              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
-              onClick={() => handleSelectSortBy(sortByObj.topic)}
-              value={sortByObj.topic}
-            >
-              {sortByText[sortByObj.topic]}
-            </a>
-            <a
-              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
-              onClick={() => handleSelectSortBy(sortByObj.author)}
-              value={sortByObj.author}
-            >
-              {sortByText[sortByObj.author]}
-            </a>
+              <div className="py-1">
+                <a
+                  className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
+                  onClick={() => handleSelectSortBy(sortByObj.created_at)}
+                  value={sortByObj.created_at}
+                >
+                  {sortByText[sortByObj.created_at]}
+                </a>
+                <a
+                  className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
+                  onClick={() => handleSelectSortBy(sortByObj.votes)}
+                  value={sortByObj.votes}
+                >
+                  {sortByText[sortByObj.votes]}
+                </a>
+                <a
+                  className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
+                  onClick={() => handleSelectSortBy(sortByObj.topic)}
+                  value={sortByObj.topic}
+                >
+                  {sortByText[sortByObj.topic]}
+                </a>
+                <a
+                  className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
+                  onClick={() => handleSelectSortBy(sortByObj.author)}
+                  value={sortByObj.author}
+                >
+                  {sortByText[sortByObj.author]}
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="relative inline-block">
-          <button
-            type="button"
-            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-sky-600 hover:bg-gray-50"
-            onClick={() => setOrderDropdown((prev) => !prev)}
-          >
-            Order By
-          </button>
-        </div>
-        <div
-          className={`${
-            orderDropdown ? "absolute" : "hidden"
-          } max-w-[100px] left-[60%] translate-x-[-60%] ml-auto mr-auto top-[370px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
-          onChange={handleSelectOrder}
-        >
-          <div className="py-1">
-            <a
-              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
-              onClick={() => handleSelectOrder("desc")}
-              value="desc"
+          <div className="relative">
+            <div className="mx-4">
+              <button
+                type="button"
+                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-sky-600 hover:bg-gray-50"
+                onClick={() => setOrderDropdown((prev) => !prev)}
+              >
+                Order By
+              </button>
+            </div>
+            <div
+              className={`${
+                orderDropdown ? "absolute" : "hidden"
+              } max-w-[100px] ml-[10px] z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+              onChange={handleSelectOrder}
             >
-              Descending
-            </a>
-            <a
-              className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
-              onClick={() => handleSelectOrder("asc")}
-              value="asc"
-            >
-              Ascending
-            </a>
+              <div className="py-1">
+                <a
+                  className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
+                  onClick={() => handleSelectOrder("desc")}
+                  value="desc"
+                >
+                  Descending
+                </a>
+                <a
+                  className="text-sky-600 block px-4 py-2 text-sm cursor-pointer"
+                  onClick={() => handleSelectOrder("asc")}
+                  value="asc"
+                >
+                  Ascending
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

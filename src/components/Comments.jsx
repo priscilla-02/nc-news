@@ -92,6 +92,7 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                         variant="outlined"
                         className="cursor-pointer"
                         onClick={() => handleDeleteComment(comment.comment_id)}
+                        style={{ color: "#0284C7" }}
                       >
                         <DeleteForeverRoundedIcon />
                         Delete
