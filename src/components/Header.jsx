@@ -10,7 +10,8 @@ import Button from "@mui/material/Button";
 import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Newspaper from "../icons/newspaper.svg";
+import NewspaperLight from "../icons/newspaper-light.svg";
+import NewspaperDark from "../icons/newspaper-dark.svg";
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
@@ -58,22 +59,35 @@ const Header = () => {
 
       <div className="flex justify-center items-center">
         <img
-          src={Newspaper}
+          src={isDarkMode ? NewspaperDark : NewspaperLight}
           alt="Newspaper Icon"
-          className="pr-3 mt-12"
-          // style={{ stroke: isDarkMode ? "#ffffff" : "#0284C7" }}
+          className="pr-3 mt-10"
         />
+
         <div className="flex flex-col justify-end items-end">
-          <i
+          <div
             className={`cursor-pointer text-5xl ${
               isDarkMode ? "text-secondary" : "text-primary"
             }`}
             onClick={handleHeaderClick}
+            style={{
+              fontFamily: "Diplomata SC Regular",
+            }}
           >
             NC NEWS
-          </i>
-          <div className={`${isDarkMode ? "text-secondary" : "text-primary"}`}>
-            <i>Brought to you by Press PC</i>
+          </div>
+          <div
+            className={`${
+              isDarkMode ? "text-secondary" : "text-primary"
+            } text-xs`}
+          >
+            <i
+              style={{
+                fontFamily: "Diplomata SC Regular, curisve",
+              }}
+            >
+              Brought to you by Press PC
+            </i>
           </div>
         </div>
       </div>
@@ -85,12 +99,12 @@ const Header = () => {
           variant="outlined"
           onClick={openLoginModal}
           style={{
-            borderColor: isDarkMode ? "#ffffff" : "#0284C7",
+            borderColor: isDarkMode ? "#fff" : "#0284C7",
           }}
         >
           <PersonIcon
             style={{
-              color: isDarkMode ? "#ffffff" : "#0284C7",
+              color: isDarkMode ? "#fff" : "#0284C7",
             }}
           />
           {user ? (
@@ -107,14 +121,14 @@ const Header = () => {
               <LogoutIcon
                 className="desktop:block hidden"
                 style={{
-                  color: isDarkMode ? "#ffffff" : "#0284C7",
+                  color: isDarkMode ? "#fff" : "#0284C7",
                 }}
               />
             </>
           ) : (
             <LoginIcon
               style={{
-                color: isDarkMode ? "#ffffff" : "#0284C7",
+                color: isDarkMode ? "#fff" : "#0284C7",
               }}
             />
           )}
@@ -131,7 +145,7 @@ const Header = () => {
           variant="outlined"
           onClick={openLoginModal}
           style={{
-            color: isDarkMode ? "#ffffff" : "#0284C7",
+            color: isDarkMode ? "#fff" : "#0284C7",
           }}
         >
           {user ? (

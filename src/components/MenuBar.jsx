@@ -73,8 +73,8 @@ const MenuBar = () => {
       <Button
         sx={{
           textTransform: "none",
-          color: isDarkMode ? "#ffffff" : "",
-          borderColor: isDarkMode ? "#ffffff" : "",
+          color: isDarkMode ? "#fff" : "",
+          borderColor: isDarkMode ? "#fff" : "",
         }}
         variant="outlined"
         onClick={() => setShowMenuBol((prev) => !prev)}

@@ -10,7 +10,6 @@ import { sqlDateFormatter } from "../utils";
 import Comments from "./Comments";
 import PostComment from "./PostComment";
 import Button from "@mui/material/Button";
-import HourglassBottomTwoToneIcon from "@mui/icons-material/HourglassBottomTwoTone";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -19,7 +18,6 @@ const SingleArticle = () => {
   const { setErrMsg } = useContext(ErrorContext);
   const { isDarkMode } = useContext(DarkModeContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
-  // const [isLoading, setIsLoading] = useState(true);
   const [singleArticle, setSingleArticle] = useState({});
   const [commentCount, setCommentCount] = useState(0);
   const [likesCount, setLikesCount] = useState(0);
@@ -78,18 +76,25 @@ const SingleArticle = () => {
         <Loading />
       ) : (
         <div
-          className={`flex flex-wrap px-[50px] justify-center pt-10 pb-16 slide-right bg-mode ${
+          className={`flex flex-wrap px-[50px] justify-center pt-10 pb-16 bg-mode ${
             isDarkMode ? "dark" : "light"
           }`}
         >
           <div
-            className={`flex flex-col desktop:w-[80vw] w-[90vw] items-center mx-auto border-solid border-2 rounded-lg p-5 ${
+            className={` slide-right flex flex-col desktop:w-[80vw] w-[90vw] items-center mx-auto border-solid border-2 rounded-lg p-5 ${
               isDarkMode
                 ? "border-secondary text-secondary"
                 : "border-primary text-primary"
             }`}
           >
-            <div className="font-bold text-2xl">{singleArticle.title}</div>
+            <div
+              className="font-bold text-2xl"
+              style={{
+                fontFamily: "Diplomata SC Regular",
+              }}
+            >
+              {singleArticle.title}
+            </div>
 
             <div className="flex space-between py-4">
               <div className="flex border-solid border-2 border-sky-600 bg-sky-600 text-white rounded-xl px-5 m-5">
@@ -126,14 +131,14 @@ const SingleArticle = () => {
                   className="cursor-pointer hover:border-sky-900"
                   onClick={() => handleVotes("unlike")}
                   style={{
-                    borderColor: isDarkMode ? "#ffffff" : "",
+                    borderColor: isDarkMode ? "#fff" : "",
                     borderRadius: "10px",
                   }}
                 >
                   <FavoriteBorderIcon
                     style={{
-                      color: isDarkMode ? "#ffffff" : "",
-                      border: isDarkMode ? "#ffffff" : "",
+                      color: isDarkMode ? "#fff" : "",
+                      border: isDarkMode ? "#fff" : "",
                     }}
                   />
                 </Button>
@@ -144,14 +149,14 @@ const SingleArticle = () => {
                   className="cursor-pointer hover:border-sky-900"
                   onClick={() => handleVotes("like")}
                   style={{
-                    borderColor: isDarkMode ? "#ffffff" : "",
+                    borderColor: isDarkMode ? "#fff" : "",
                     borderRadius: "10px",
                   }}
                 >
                   <FavoriteIcon
                     style={{
-                      color: isDarkMode ? "#ffffff" : "",
-                      border: isDarkMode ? "#ffffff" : "",
+                      color: isDarkMode ? "#fff" : "",
+                      border: isDarkMode ? "#fff" : "",
                     }}
                   />
                 </Button>

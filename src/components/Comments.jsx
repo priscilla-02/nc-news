@@ -67,7 +67,7 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
           >
             Comments
           </div>
-          <ul className="flex flex-wrap justify-center items-center">
+          <ul className="flex flex-wrap justify-center items-center slide-right ">
             {commentList.length === 0 ? (
               <p className="flex flex-col desktop:w-[80vw] w-[90vw] w-10 border-solid border-2 border-sky-600 rounded-xl my-4 p-2">
                 Be the first one to comment!
@@ -110,12 +110,12 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                         className="cursor-pointer"
                         onClick={() => handleDeleteComment(comment.comment_id)}
                         style={{
-                          borderColor: isDarkMode ? "#ffffff" : "#0284C7",
+                          borderColor: isDarkMode ? "#fff" : "#0284C7",
                         }}
                       >
                         <DeleteForeverRoundedIcon
                           style={{
-                            color: isDarkMode ? "#ffffff" : "#0284C7",
+                            color: isDarkMode ? "#fff" : "#0284C7",
                           }}
                         />
                         <span

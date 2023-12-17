@@ -35,7 +35,7 @@ const PostComment = ({ setRefreshComment }) => {
   };
 
   return (
-    <form className="flex flex-col items-center mt-16">
+    <form className="flex flex-col items-center mt-16 slide-right ">
       <div
         className={`flex flex-col desktop:w-[80vw] w-[90vw] border-solid border-2 rounded-lg p-5 ${
           isDarkMode ? "dark" : "light"

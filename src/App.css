@@ -11,6 +11,11 @@
   overflow-x: hidden;
 }
 
+@font-face {
+  font-family: "Diplomata SC Regular";
+  src: url("../src/font/DiplomataSC-Regular.ttf") format("truetype");
+}
+
 @layer components {
   .slide-right-topic {
     animation: 3s slide-right-topic;
@@ -47,10 +52,10 @@
 }
 
 body {
-  --background-light: #ffffff;
+  --background-light: #fff;
   --text-light: #0284c7;
   --background-dark: #6c757d;
-  --text-dark: #ffffff;
+  --text-dark: #fff;
 }
 
 .dark {
@@ -88,5 +93,5 @@ body {
 }
 
 .stroke-white {
-  stroke: #ffffff;
+  stroke: #fff;
 }

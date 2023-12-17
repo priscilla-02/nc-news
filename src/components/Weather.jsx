@@ -38,7 +38,7 @@ const Weather = () => {
     <div
       className={`bg-mode ${
         isDarkMode ? "dark text-secondary" : "light text-primary"
-      } italic text-sm p-4`}
+      } italic text-sm p-5`}
     >
       <p>
         {" "}
@@ -47,7 +47,7 @@ const Weather = () => {
         ) : (
           <ModeNightOutlinedIcon />
         )}{" "}
-        Current Time: {currentTime}
+        {weatherData.name} Current Time: {currentTime}
       </p>
       {weatherData && (
         <>
