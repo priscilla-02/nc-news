@@ -74,3 +74,17 @@ export const ErrorPath = () => {
       throw error;
     });
 };
+
+///weather///
+
+export const fetchWeatherData = (latitude, longitude) => {
+  const apiKey = "18336912236c83629be18b6ce111d8c9";
+  return axios
+    .get(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
+    )
+    .then(({ data }) => {
+      console.log(data);
+      return data;
+    });
+};

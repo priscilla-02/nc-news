@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { ModalContext } from "../contexts/ModalContext";
-import { useParams } from "react-router-dom";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 import { postComment } from "../api";
 
 const PostComment = ({ setRefreshComment }) => {
   const { user } = useContext(UserContext);
   const { setOpenModal } = useContext(ModalContext);
+  const { isDarkMode } = useContext(DarkModeContext);
   const [commentInput, setCommentInput] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
   const { article_id } = useParams();
@@ -34,7 +36,11 @@ const PostComment = ({ setRefreshComment }) => {
 
   return (
     <form className="flex flex-col items-center mt-16">
-      <div className="flex flex-col desktop:w-[80vw] w-[90vw] border-solid border-2 rounded-lg p-5 border-sky-600">
+      <div
+        className={`flex flex-col desktop:w-[80vw] w-[90vw] border-solid border-2 rounded-lg p-5 ${
+          isDarkMode ? "dark" : "light"
+        }`}
+      >
         <div>
           <div>
             <div className="sm:col-span-4">

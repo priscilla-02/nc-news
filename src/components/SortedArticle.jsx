@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { fetchAllArticles } from "../api";
 import { sqlDateFormatter } from "../utils";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 
 export const sortByObj = {
   created_at: "created_at",
@@ -12,11 +13,12 @@ export const sortByObj = {
 };
 
 const SortedArticle = () => {
-  const [searchParams] = useSearchParams();
+  const { isDarkMode } = useContext(DarkModeContext);
   const [sortedArticles, setSortedArticles] = useState([]);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const sort_by = searchParams.get("sort_by");
   const order = searchParams.get("order");
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchAllArticles(sort_by, order).then((articles) => {
@@ -29,12 +31,20 @@ const SortedArticle = () => {
   };
 
   return (
-    <main className="flex flex-wrap px-[50px] justify-center ">
+    <main
+      className={`flex flex-wrap px-[50px] justify-center bg-mode ${
+        isDarkMode ? "dark" : "light"
+      }`}
+    >
       {sortedArticles.map((article) => {
         return (
           <section
             key={article.article_id}
-            className="flex justify-center w-[50vw] m-2 border-solid border-2 rounded-lg p-5 border-indigo-800 cursor-pointer"
+            className={`flex justify-center w-[50vw] m-2 border-solid border-2 rounded-lg p-5 mb-5 cursor-pointer ${
+              isDarkMode
+                ? "border-secondary text-secondary"
+                : "border-primary text-primary"
+            }`}
           >
             <article onClick={() => handleClick(article.article_id)}>
               <img src={article.article_img_url} alt={article.title} />

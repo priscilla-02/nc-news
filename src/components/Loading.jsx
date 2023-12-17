@@ -1,10 +1,13 @@
+import { useContext } from "react";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 import HourglassBottomTwoToneIcon from "@mui/icons-material/HourglassBottomTwoTone";
 
 const Loading = () => {
+  const { isDarkMode } = useContext(DarkModeContext);
   return (
-    <div className="py-4">
+    <div className={`bg-mode ${isDarkMode ? "dark" : "light"}`}>
       <HourglassBottomTwoToneIcon className="animate-pulse" />
-      Loading comments...
+      <span className="text-xl py-50">Loading...</span>
     </div>
   );
 };

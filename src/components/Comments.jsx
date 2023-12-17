@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { DarkModeContext } from "../contexts/DarkModeContext";
+import { LoadingContext } from "../contexts/LoadingContext";
+import Loading from "./Loading";
 import { deleteComment, fetchCommentsByArticleId } from "../api";
 import { sqlDateFormatter } from "../utils";
-import { LoadingContext } from "../contexts/LoadingContext";
-import { useContext } from "react";
-import Loading from "./Loading";
 import Button from "@mui/material/Button";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-import { UserContext } from "../contexts/UserContext";
 
 const deletedObj = {
   default: "default",
@@ -21,6 +21,7 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
   const { user } = useContext(UserContext);
   const [deleteCurrentComment, setDeleteCurrentComment] = useState(null);
   const [deletedBol, setDeletedBol] = useState(deletedObj.default);
+  const { isDarkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     if (refreshComment) {
@@ -59,12 +60,16 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
         <Loading />
       ) : (
         <div>
-          <div className="font-bold text-3xl pt-20 text-sky-600 italic">
+          <div
+            className={`font-bold text-3xl pt-20 italic  ${
+              isDarkMode ? "text-secondary" : "text-primary"
+            }`}
+          >
             Comments
           </div>
           <ul className="flex flex-wrap justify-center items-center">
             {commentList.length === 0 ? (
-              <p className="flex flex-col desktop:w-[80vw] w-[90vw] w-10 border-solid border-2 border-sky-500 rounded-xl my-4 p-2">
+              <p className="flex flex-col desktop:w-[80vw] w-[90vw] w-10 border-solid border-2 border-sky-600 rounded-xl my-4 p-2">
                 Be the first one to comment!
               </p>
             ) : (
@@ -72,15 +77,27 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                 return (
                   <li
                     key={comment.comment_id}
-                    className="flex flex-col desktop:w-[40vw] min-h-[250px] w-[90vw] border-solid border-2 border-sky-600 rounded-xl m-4 px-3 justify-center items-center"
+                    className={`flex flex-col desktop:w-[40vw] min-h-[250px] w-[90vw] border-solid border-2 rounded-xl m-4 px-3 justify-center items-center ${
+                      isDarkMode ? "dark" : "light"
+                    }`}
                   >
-                    <p>
+                    <p
+                      className={`${
+                        isDarkMode ? "text-secondary" : "text-primary"
+                      }`}
+                    >
                       {comment.author} posted on{" "}
                       {sqlDateFormatter(comment.created_at)}
                     </p>
                     <br />
 
-                    <p>"{comment.body}"</p>
+                    <p
+                      className={`${
+                        isDarkMode ? "text-secondary" : "text-primary"
+                      }`}
+                    >
+                      "{comment.body}"
+                    </p>
                     <div
                       className={
                         user && user.username === comment.author
@@ -92,10 +109,22 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                         variant="outlined"
                         className="cursor-pointer"
                         onClick={() => handleDeleteComment(comment.comment_id)}
-                        style={{ color: "#0284C7" }}
+                        style={{
+                          borderColor: isDarkMode ? "#ffffff" : "#0284C7",
+                        }}
                       >
-                        <DeleteForeverRoundedIcon />
-                        Delete
+                        <DeleteForeverRoundedIcon
+                          style={{
+                            color: isDarkMode ? "#ffffff" : "#0284C7",
+                          }}
+                        />
+                        <span
+                          className={`${
+                            isDarkMode ? "text-secondary" : "text-primary"
+                          }`}
+                        >
+                          Delete
+                        </span>
                       </Button>
                       <div
                         className={`${

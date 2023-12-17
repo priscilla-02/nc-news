@@ -1,15 +1,12 @@
 import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate, createSearchParams } from "react-router-dom";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 import { fetchAllTopics } from "../api";
-import {
-  useNavigate,
-  useSearchParams,
-  createSearchParams,
-} from "react-router-dom";
 import { sortByObj } from "./SortedArticle";
-import "../App.css";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 export const sortByText = {
   [sortByObj.created_at]: "Date",
   [sortByObj.votes]: "Votes",
@@ -18,16 +15,17 @@ export const sortByText = {
 };
 
 const MenuBar = () => {
+  const { isDarkMode } = useContext(DarkModeContext);
   const [showMenuBol, setShowMenuBol] = useState(false);
   const [topicsList, setTopicsList] = useState([]);
   const [selectTopic, setSelectTopic] = useState("");
   const [slug, setSlug] = useState("");
-  const navigate = useNavigate();
-  const [sortBy, setSortBy] = useState(sortByObj.created_at);
-  const [order, setOrder] = useState("desc");
   const [orderDropdown, setOrderDropdown] = useState(false);
   const [sortBydropdown, setSortByDropdown] = useState(false);
   const [animate, setAnimate] = useState(false);
+  const [sortBy, setSortBy] = useState(sortByObj.created_at);
+  const [order, setOrder] = useState("desc");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchAllTopics(sortBy).then((topics) => {
@@ -71,9 +69,13 @@ const MenuBar = () => {
   };
 
   return (
-    <div>
+    <div className={`bg-mode ${isDarkMode ? "dark" : "light"}`}>
       <Button
-        sx={{ textTransform: "none" }}
+        sx={{
+          textTransform: "none",
+          color: isDarkMode ? "#ffffff" : "",
+          borderColor: isDarkMode ? "#ffffff" : "",
+        }}
         variant="outlined"
         onClick={() => setShowMenuBol((prev) => !prev)}
       >
@@ -96,9 +98,11 @@ const MenuBar = () => {
             <p
               className={`${
                 animate && selectTopic == "all"
-                  ? "absolute slide-right left-[50%] w-[80vw] translate-center"
+                  ? "absolute slide-right-topic left-[50%] w-[80vw] translate-center"
                   : "hidden"
-              } text-sky-600 pb-2 my-10 text-xl italic`}
+              } ${
+                isDarkMode ? "text-secondary" : "text-primary"
+              } pb-2 my-10 text-xl italic`}
             >
               {slug}
             </p>
@@ -122,9 +126,11 @@ const MenuBar = () => {
                   <p
                     className={`${
                       animate && selectTopic == topic.slug
-                        ? "fixed slide-right left-[50%] w-[80vw] translate-center"
+                        ? "fixed slide-right-topic left-[50%] w-[80vw] translate-center "
                         : "hidden"
-                    } text-sky-600 pb-2 my-10 text-xl italic absolute`}
+                    } ${
+                      isDarkMode ? "text-secondary" : "text-primary"
+                    } pb-2 my-10 text-xl italic absolute`}
                   >
                     {slug}
                   </p>
@@ -137,7 +143,11 @@ const MenuBar = () => {
             <div className="mx-4">
               <button
                 type="button"
-                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-sky-600 hover:bg-gray-50"
+                className={`inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold ${
+                  isDarkMode
+                    ? "bg-dark text-white ring-1 ring-white hover:bg-sky-600"
+                    : "bg-white text-sky-600 ring-1 ring-sky-600 "
+                }`}
                 onClick={() => setSortByDropdown((prev) => !prev)}
               >
                 Sort By
@@ -185,7 +195,11 @@ const MenuBar = () => {
             <div className="mx-4">
               <button
                 type="button"
-                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-sky-600 hover:bg-gray-50"
+                className={`inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold ${
+                  isDarkMode
+                    ? "bg-dark text-white ring-1 ring-white hover:bg-sky-600"
+                    : "bg-white text-sky-600 ring-1 ring-sky-600 shadow-sm"
+                }`}
                 onClick={() => setOrderDropdown((prev) => !prev)}
               >
                 Order By

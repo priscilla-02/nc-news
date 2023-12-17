@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { fetchUsers } from "../api";
 import { ModalContext } from "../contexts/ModalContext";
+import { fetchUsers } from "../api";
 import ArrowLeftRoundedIcon from "@mui/icons-material/ArrowLeftRounded";
 
 const LogInModal = () => {
