@@ -21,9 +21,9 @@
     animation: 3s slide-right-topic;
   }
 
-  /* .translate-center {
-    transform: translate(-50%, -50%);
-  } */
+  .translate-center {
+    transform: translateX(-50%);
+  }
 
   .slide-right {
     animation: 3s slide-right;
@@ -86,12 +86,4 @@ body {
 
 .bg-mode {
   background-color: var(--background-mode);
-}
-
-.stroke-blue {
-  stroke: #0284c7;
-}
-
-.stroke-white {
-  stroke: #fff;
 }

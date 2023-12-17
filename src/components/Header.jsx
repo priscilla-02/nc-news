@@ -46,14 +46,24 @@ const Header = () => {
         <DarkModeToggle />
       </div>
       {openModal && <LogInModal setOpenModal={setOpenModal} />}
-      <div className="absolute top-8 left-5  px-4 py-3 text-right">
+
+      <div className="desktop:block hidden absolute top-8 left-4 px-4 py-3 text-right">
         <button
           type="button"
-          className="flex items-center justify-center pr-2 bg-sky-600 text-white rounded hover:bg-blue-600 mr-2 mt-3 text-md cursor-pointer"
+          className="flex items-center justify-center pr-2 bg-sky-600 text-white rounded hover:bg-blue-600 mr-2 mt-3 text-md cursor-pointer w-[80px] h-[30px]"
           onClick={goBackFunc}
         >
           <ArrowLeftRoundedIcon />
           <i> Back</i>
+        </button>
+      </div>
+      <div className="desktop:hidden block absolute top-1 left-1">
+        <button
+          type="button"
+          className="flex items-center justify-center bg-sky-600 text-white rounded hover:bg-blue-600 mr-2 mt-3 text-md cursor-pointer"
+          onClick={goBackFunc}
+        >
+          <ArrowLeftRoundedIcon />
         </button>
       </div>
 
@@ -61,10 +71,10 @@ const Header = () => {
         <img
           src={isDarkMode ? NewspaperDark : NewspaperLight}
           alt="Newspaper Icon"
-          className="pr-3 mt-10"
+          className="pr-3 ml-5"
         />
 
-        <div className="flex flex-col justify-end items-end">
+        <div className="flex flex-col justify-end items-end mt-5 mr-5">
           <div
             className={`cursor-pointer text-5xl ${
               isDarkMode ? "text-secondary" : "text-primary"
@@ -84,6 +94,7 @@ const Header = () => {
             <i
               style={{
                 fontFamily: "Diplomata SC Regular, curisve",
+                fontSize: "10px",
               }}
             >
               Brought to you by Press PC
@@ -93,7 +104,11 @@ const Header = () => {
       </div>
 
       <div
-        className={`desktop:block hidden absolute top-10 right-10 cursor-pointer `}
+        className={`desktop:block hidden absolute top-10 right-10 cursor-pointer ${
+          isDarkMode
+            ? "border-secondary text-secondary"
+            : "border-primary text-primary"
+        }`}
       >
         <Button
           variant="outlined"
@@ -135,7 +150,7 @@ const Header = () => {
         </Button>
       </div>
       <div
-        className={`desktop:hidden block absolute top-8 right-8 cursor-pointer ${
+        className={`desktop:hidden block absolute top-2 right-4 cursor-pointer ${
           isDarkMode
             ? "border-secondary text-secondary"
             : "border-primary text-primary"
@@ -145,6 +160,7 @@ const Header = () => {
           variant="outlined"
           onClick={openLoginModal}
           style={{
+            borderColor: isDarkMode ? "#fff" : "#0284C7",
             color: isDarkMode ? "#fff" : "#0284C7",
           }}
         >

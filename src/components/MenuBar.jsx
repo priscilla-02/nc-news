@@ -85,12 +85,12 @@ const MenuBar = () => {
 
       <div className={showMenuBol ? "block pt-5" : "hidden"}>
         <section className="flex justify-center">
-          <div key="all" className=" m-3">
+          <div key="all" className=" m-1">
             <button
               onClick={() => handleSelectTopic("all", "All topics")}
               className={`${
                 selectTopic == "all" ? "bg-blue-700 " : "bg-sky-600"
-              } bg-sky-600 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full x-5 w-[90px]`}
+              } bg-sky-600 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full x-5 w-[80px]`}
             >
               <div>All</div>
             </button>
@@ -102,7 +102,7 @@ const MenuBar = () => {
                   : "hidden"
               } ${
                 isDarkMode ? "text-secondary" : "text-primary"
-              } pb-2 my-10 text-xl italic`}
+              } pb-2 my-5  text-xl italic`}
             >
               {slug}
             </p>
@@ -111,7 +111,7 @@ const MenuBar = () => {
           {topicsList.length > 0 &&
             topicsList.map((topic) => {
               return (
-                <div key={topic.slug} className=" m-3">
+                <div key={topic.slug} className="m-1">
                   <button
                     onClick={() =>
                       handleSelectTopic(topic.slug, topic.description)
@@ -126,11 +126,11 @@ const MenuBar = () => {
                   <p
                     className={`${
                       animate && selectTopic == topic.slug
-                        ? "fixed slide-right-topic left-[50%] w-[80vw] translate-center "
+                        ? "absolute slide-right-topic left-[50%] w-[80vw] translate-center"
                         : "hidden"
                     } ${
                       isDarkMode ? "text-secondary" : "text-primary"
-                    } pb-2 my-10 text-xl italic absolute`}
+                    } pb-2 my-5 text-xl italic`}
                   >
                     {slug}
                   </p>
@@ -138,7 +138,8 @@ const MenuBar = () => {
               );
             })}
         </section>
-        <div className="flex justify-center items-center w-[100vw] pt-16">
+
+        <div className="flex justify-center items-center w-[100vw] pt-20 pb-3">
           <div className="relative">
             <div className="mx-4">
               <button

@@ -88,7 +88,7 @@ const SingleArticle = () => {
             }`}
           >
             <div
-              className="font-bold text-2xl"
+              className="font-bold text-xl"
               style={{
                 fontFamily: "Diplomata SC Regular",
               }}

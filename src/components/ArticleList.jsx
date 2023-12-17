@@ -64,7 +64,7 @@ const ArticleList = ({ articles, setArticles }) => {
             return (
               <section
                 key={article.article_id}
-                className="desktop:w-[20vw] w-[40vw] m-2 border-2 border-light-gray-700 p-4 m-3 rounded-lg shadow-lg hover:border-sky-600 cursor-pointer hover:scale-110 slide-right"
+                className="desktop:w-[20vw] w-[75vw] m-2 border-2 border-light-gray-700 p-4 m-3 rounded-lg shadow-lg hover:border-sky-600 cursor-pointer hover:scale-110 slide-right"
               >
                 <article onClick={() => handleClick(article.article_id)}>
                   <img src={article.article_img_url} alt={article.title} />

@@ -2,7 +2,7 @@
 
 ## Welcome 👋
 
-This repo is a portfolio project simulating a social aggreation news site, built with JavaScript and React and styled using TailwindCSS.
+This repo is a portfolio project simulating a social aggreation news site, built with JavaScript and React and styled with TailwindCSS.
 Users can select, sort, and order the news articles to read, as well as interact with them through comments and likes.
 
 Hosted Version: https://nc-news-by-priscilla-c.netlify.app/

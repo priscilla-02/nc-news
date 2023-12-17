@@ -31,7 +31,7 @@ const Weather = () => {
   const isDaytime = (time) => {
     const [hours] = time.split(":");
     const hoursNumber = +hours;
-    return hoursNumber >= 6 && hoursNumber < 19;
+    return hoursNumber >= 6 && hoursNumber < 18;
   };
 
   return (
@@ -47,7 +47,7 @@ const Weather = () => {
         ) : (
           <ModeNightOutlinedIcon />
         )}{" "}
-        {weatherData.name} Current Time: {currentTime}
+        Local Current Time: {currentTime}
       </p>
       {weatherData && (
         <>
