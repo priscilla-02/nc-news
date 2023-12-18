@@ -40,7 +40,7 @@ const SortedArticle = () => {
         return (
           <section
             key={article.article_id}
-            className={`slide-right flex justify-center w-[50vw] m-2 border-solid border-2 rounded-lg p-5 mb-5 cursor-pointer ${
+            className={`slide-right flex justify-center w-[50vw] m-2 border-solid border-2 rounded-lg p-5 m-5 hover:scale-110 cursor-pointer ${
               isDarkMode
                 ? "border-secondary text-secondary"
                 : "border-primary text-primary"

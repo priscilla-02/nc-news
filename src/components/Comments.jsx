@@ -67,9 +67,17 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
           >
             Comments
           </div>
-          <ul className="flex flex-wrap justify-center items-center slide-right ">
+          <ul
+            className={`flex flex-wrap justify-center items-center slide-right`}
+          >
             {commentList.length === 0 ? (
-              <p className="flex flex-col desktop:w-[80vw] w-[90vw] w-10 border-solid border-2 border-sky-600 rounded-xl my-4 p-2">
+              <p
+                className={`flex flex-col desktop:w-[80vw] w-[90vw] w-10 border-solid border-2 rounded-xl my-4 p-2 ${
+                  isDarkMode
+                    ? "border-secondary text-secondary"
+                    : "border-primary text-primary"
+                }`}
+              >
                 Be the first one to comment!
               </p>
             ) : (
@@ -78,7 +86,9 @@ const Comments = ({ article_id, setRefreshComment, refreshComment }) => {
                   <li
                     key={comment.comment_id}
                     className={`flex flex-col desktop:w-[40vw] min-h-[250px] w-[90vw] border-solid border-2 rounded-xl m-4 px-3 justify-center items-center ${
-                      isDarkMode ? "dark" : "light"
+                      isDarkMode
+                        ? "border-secondary text-secondary"
+                        : "border-primary text-black"
                     }`}
                   >
                     <p
